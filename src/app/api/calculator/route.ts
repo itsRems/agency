@@ -1,9 +1,11 @@
-import { CalculatorInput } from "@/lib/types";
+import { CalculatorInput, Games } from "@/lib/schemas";
 
 export async function POST(request: Request) {
-  const res: CalculatorInput = await request.json();
+  const body: CalculatorInput = await request.json();
 
-  console.log(res);
+  console.log(body);
 
-  return Response.json({ res });
+  console.log(Games.safeParse(body.game));
+
+  return Response.json({ body });
 }

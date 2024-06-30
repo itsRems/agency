@@ -1,6 +1,6 @@
 "use client";
 
-import { CalculatorInput } from "@/lib/types";
+import { CalculatorInput } from "@/lib/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -27,10 +27,18 @@ export function CalculatorForm() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof CalculatorInput>) {
+  async function onSubmit(values: z.infer<typeof CalculatorInput>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+
+    await fetch("/api/calculator", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
   }
 
   return (
